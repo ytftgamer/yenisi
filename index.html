@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Büyüyen Çiçek</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      background: radial-gradient(circle at top, #f5e6ff 0%, #3b1f78 40%, #05081a 100%);
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .glow-layer {
+      position: absolute;
+      width: 140%;
+      height: 60%;
+      bottom: -10%;
+      left: -20%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
+      filter: blur(8px);
+    }
+
+    .scene {
+      position: relative;
+      width: 260px;
+      height: 380px; /* Yazı için alan açtım */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 80px;
+      width: 160px;
+      height: 35px;
+      background: radial-gradient(circle at top, #4c2f16, #2c180a);
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+    }
+
+    .flower-wrapper {
+      position: absolute;
+      bottom: 90px;
+      width: 40px;
+      height: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      transform-origin: bottom center;
+      animation: grow 2.5s ease-out forwards, sway 3s ease-in-out 2.5s infinite;
+    }
+
+    @keyframes grow {
+      0% { transform: scaleY(0) translateY(40px); opacity: 0; }
+      40% { opacity: 1; }
+      100% { transform: scaleY(1) translateY(0); opacity: 1; }
+    }
+
+    @keyframes sway {
+      0%   { transform: rotate(0deg); }
+      25%  { transform: rotate(2.5deg); }
+      50%  { transform: rotate(0deg); }
+      75%  { transform: rotate(-2.5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .stem {
+      position: absolute;
+      bottom: 0;
+      width: 8px;
+      height: 130px;
+      background: linear-gradient(to top, #0e7a33, #3bdc7f);
+      border-radius: 999px;
+      box-shadow: 0 0 10px rgba(59,220,127,0.4);
+    }
+
+    .leaf {
+      position: absolute;
+      width: 34px;
+      height: 18px;
+      background: linear-gradient(to right, #1f8f3d, #4bf398);
+      border-radius: 30px 60px 20px 40px;
+      top: 55%;
+      left: -20px;
+      transform: rotate(-18deg);
+      box-shadow: 0 0 8px rgba(75,243,152,0.5);
+    }
+
+    .leaf.right {
+      left: auto;
+      right: -20px;
+      border-radius: 60px 30px 40px 20px;
+      transform: rotate(18deg);
+    }
+
+    .flower-head {
+      position: absolute;
+      bottom: 118px;
+      width: 90px;
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.7));
+    }
+
+    .petal {
+      position: absolute;
+      width: 38px;
+      height: 60px;
+      background: radial-gradient(circle at top, #ffe6ff, #ff4fb8);
+      border-radius: 50px 50px 38px 38px;
+      box-shadow: 0 0 12px rgba(255,79,184,0.6);
+    }
+
+    .petal:nth-child(1)  { transform: rotate(0deg)   translateY(-30px); }
+    .petal:nth-child(2)  { transform: rotate(45deg)  translateY(-30px); }
+    .petal:nth-child(3)  { transform: rotate(90deg)  translateY(-30px); }
+    .petal:nth-child(4)  { transform: rotate(135deg) translateY(-30px); }
+    .petal:nth-child(5)  { transform: rotate(180deg) translateY(-30px); }
+    .petal:nth-child(6)  { transform: rotate(225deg) translateY(-30px); }
+    .petal:nth-child(7)  { transform: rotate(270deg) translateY(-30px); }
+    .petal:nth-child(8)  { transform: rotate(315deg) translateY(-30px); }
+
+    .center {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at top, #fff9c4, #ffb300);
+      border-radius: 50%;
+      box-shadow:
+        0 0 12px rgba(255,235,59,0.9),
+        0 0 25px rgba(255,193,7,0.9);
+    }
+
+    /* NOT YAZISI – daha yukarı aldım */
+    .note {
+      position: absolute;
+      bottom: 260px; /* YÜKSELTİLDİ */
+      width: 100%;
+      text-align: center;
+      font-size: 15px;
+      color: #ffeaff;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: noteIn 2.2s ease-out 1.2s forwards;
+      text-shadow: 0 0 6px rgba(255,200,255,0.8);
+      line-height: 1.4;
+      padding: 0 10px; /* Telefondan taşmasın */
+    }
+
+    @keyframes noteIn {
+      0%   { opacity: 0; transform: translateY(20px); }
+      60%  { opacity: 1; transform: translateY(0px); }
+      100% { opacity: 1; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="glow-layer"></div>
+
+  <div class="scene">
+
+    <!-- ANİMASYONLU NOT (yükseltilmiş) -->
+    <div class="note">
+      Bu çiçek neden büyüdü bilmiyorum…<br>
+      galiba doğru kişiye gönderdim 🌸😄
+    </div>
+
+    <div class="ground"></div>
+
+    <div class="flower-wrapper">
+      <div class="stem"></div>
+      <div class="leaf"></div>
+      <div class="leaf right"></div>
+
+      <div class="flower-head">
+        <div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
